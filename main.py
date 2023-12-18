@@ -464,6 +464,7 @@ while run:
                     game_over = 0
                     score = 0
                     main_menu = True
+                    game_win_fx.stop()
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
