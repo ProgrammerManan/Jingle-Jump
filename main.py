@@ -417,6 +417,7 @@ while run:
             #Checking for if the player has collided with the gift
             if pygame.sprite.spritecollide(player, gift_group, True):
                 score += 1
+                totalScore += 1
                 coin_fx.play()
             draw_text('X  -  ' + str(score), font_score, white, tile_size , 25)
 
@@ -437,13 +438,13 @@ while run:
                 world_data = []
                 world = reset_level(level)
                 game_over = 0
+                totalScore = totalScore - score
                 score = 0
                 # gift_group.empty()
 
         if game_over == 1:
             # reset game and go to next level
             level += 1
-            totalScore = totalScore + score
             if level <= max_levels:
                 pygame.mixer.music.play(-1, 0.0, 5000)
                 gift_group.empty()
@@ -454,6 +455,7 @@ while run:
                 world = reset_level(level)
                 game_over = 0
                 score = 0
+
             else:
                 screen.blit(bg_img, (0, 0))
                 mixer.music.stop()
