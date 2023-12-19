@@ -29,6 +29,7 @@ main_menu = True
 level = 1
 max_levels = 2
 score = 0
+totalScore = 0
 
 #define colours
 white = (255, 255, 255)
@@ -405,6 +406,10 @@ while run:
 
         world.draw()
 
+        level_text = f'Level - {level}'
+
+        draw_text(f"{level_text}", font_score, blue, 309, 7)
+
         if game_over == 0:
             if level==2:
                 blob_group.update()
@@ -438,6 +443,7 @@ while run:
         if game_over == 1:
             # reset game and go to next level
             level += 1
+            totalScore = totalScore + score
             if level <= max_levels:
                 pygame.mixer.music.play(-1, 0.0, 5000)
                 gift_group.empty()
@@ -452,6 +458,9 @@ while run:
                 screen.blit(bg_img, (0, 0))
                 mixer.music.stop()
                 draw_text('YOU WIN!', font, blue, (screen_width // 2) - 100, screen_height // 2)
+                draw_text(f'Score - {totalScore}/{25}', font_score, blue, (screen_width // 2 +
+                                                                           60) -
+                          100, screen_height // 2 + 70)
                 game_win_fx.play()
                 if restart_button.draw():
                     gift_group.empty()
@@ -465,6 +474,7 @@ while run:
                     score = 0
                     main_menu = True
                     game_win_fx.stop()
+                    totalScore = 0
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
